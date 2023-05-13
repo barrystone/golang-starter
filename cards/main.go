@@ -3,9 +3,15 @@ package main
 import "fmt"
 
 func main() {
-	card := newCard()
+	// Slices
+	cards := []string{newCard(),"This a old card",newCard()} 
+	cards = append(cards, "This is a latest card")
 
-	fmt.Println(card)
+	// For loops
+	for i, card := range cards {
+		fmt.Println(i ,card)
+	}
+
 }
 
 func newCard() string {
