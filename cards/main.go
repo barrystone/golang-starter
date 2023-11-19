@@ -4,29 +4,30 @@ import "fmt"
 
 func main() {
 
-	fmt.Print("=== cards ===")
+	fmt.Println("=== cards ===")
 	// Slices
 	cards := deck{newCard(), "This a old card", newCard()}
 	cards = append(cards, "This is a latest card")
 	// For loops
 	cards.print()
-	fmt.Print("======")
+	fmt.Println("======")
 	
+	fmt.Println("=== cards2 (with newDeck())===")
 	cards2 := newDeck()
-	fmt.Print("=== cards2 (with newDeck())===")
 	cards2.print()
-	fmt.Print("======")
+	fmt.Println("======")
 
 
-	fmt.Print("=== deal() ===")
+	fmt.Println("=== deal() ===")
 	hand, remainingDeck := deal(cards2, 5)
-	fmt.Print("= hand =")
+	fmt.Println("= hand =")
 	hand.print()
-	fmt.Print("= remainingDeck =")
+	fmt.Println("= remainingDeck =")
 	remainingDeck.print()
-	fmt.Print("======")
+	fmt.Println("======")
 
-
+	fmt.Println("=== toStrring ===")
+	fmt.Println(cards2.toString())
 }
 
 func newCard() string {
