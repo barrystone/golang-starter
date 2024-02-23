@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 )
@@ -46,12 +47,21 @@ func (d deck) toString() string {
 }
 
 func (d deck) saveToFile(fileName string) error {
-	return os.WriteFile(fileName, []byte(d.toString()), 0666)
+	dirPath := "./saveFiles"
+	filePath := filepath.Join(dirPath, fileName)
+
+	err := os.MkdirAll(dirPath, 0666)
 	// "0666" means anyone can read and write this file
+	if err != nil {
+		return err
+	}
+
+	return os.WriteFile(filePath, []byte(d.toString()), 0666)
 }
 
 func newDeckFromFile(fileName string) deck {
-	bs, err := os.ReadFile(fileName)
+	filePath := filepath.Join("./saveFiles", fileName)
+	bs, err := os.ReadFile(filePath)
 	if err != nil {
 		// Option #1 - log the error and return a call to newDeck()
 		// Option #2 - log the error and entirely quit the program
