@@ -18,7 +18,7 @@ func main() {
 	fmt.Println("======")
 
 	fmt.Println("=== deal() ===")
-	hand, remainingDeck := deal(cards2, 5)
+	hand, remainingDeck := deal(cards2, 3) //5
 	fmt.Println("= hand =")
 	hand.print()
 	fmt.Println("= remainingDeck =")
@@ -38,9 +38,21 @@ func main() {
 	cards2Rf := newDeckFromFile("cards save")
 	cardsRf.print()
 	cards2Rf.print()
+	// Error handling
+	// testRf := newDeckFromFile("test non-exist file")
+	// testRf.print()
+	fmt.Println("======")
 
-	testRf := newDeckFromFile("test non-exist file")
-	testRf.print()
+	fmt.Println("=== Shuffle Decks ===")
+	fmt.Println("= Normal shuffle (get same result every time) =")
+	cardsForNormalShuffle := newDeck()
+	cardsForNormalShuffle.normalShuffle()
+	cardsForNormalShuffle.print()
+	fmt.Println("= Truly Random Shuffle =")
+	cardsForTrulyRandomShuffle := newDeck()
+	cardsForTrulyRandomShuffle.trulyRandomShuffle()
+	cardsForTrulyRandomShuffle.print()
+	fmt.Println("======")
 
 }
 

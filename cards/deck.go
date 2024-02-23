@@ -2,19 +2,22 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
-// Creat a new type of 'deck'
+// Create a new type of 'deck'
 // which is a slice of strings
 type deck []string
 
 func newDeck() deck {
 	cards := deck{}
 
-	cardSuits := []string{"Spades", "Diamods", "Hearts", "Clubs"}
-	cardValues := []string{"Ace", "Two", "Three", "Four"}
+	cardSuits := []string{"Spades", "Diamods"} //  "Hearts", "Clubs"
+
+	cardValues := []string{"Ace", "Two", "Three"} // "Four"
 
 	for _, suit := range cardSuits {
 		for _, value := range cardValues {
@@ -27,7 +30,7 @@ func newDeck() deck {
 
 // Receiver function
 // 'd' is a variable(like 'this' or 'self'),
-// excetly like cards put in there
+// exactly like cards put in there
 func (d deck) print() {
 	for i, card := range d {
 		fmt.Println(i, card)
@@ -39,18 +42,15 @@ func deal(d deck, handSize int) (deck, deck) {
 }
 
 func (d deck) toString() string {
-	// https://pkg.go.dev/strings#example-Join
 	return strings.Join([]string(d), ",")
 }
 
 func (d deck) saveToFile(fileName string) error {
-	// https://pkg.go.dev/os#WriteFile
 	return os.WriteFile(fileName, []byte(d.toString()), 0666)
 	// "0666" means anyone can read and write this file
 }
 
 func newDeckFromFile(fileName string) deck {
-	// https://pkg.go.dev/os#ReadFile
 	bs, err := os.ReadFile(fileName)
 	if err != nil {
 		// Option #1 - log the error and return a call to newDeck()
@@ -59,7 +59,24 @@ func newDeckFromFile(fileName string) deck {
 		os.Exit(1)
 	}
 	//string(bs): Ace of Spades,Two of Spades,Three of Spades, ...
-	// https://pkg.go.dev/strings@go1.21.6#Split
 	s := strings.Split(string(bs), ",")
 	return deck(s)
+}
+
+func (d deck) normalShuffle() {
+	for i := range d {
+		newPosition := rand.Intn(len(d) - 1)
+		// Swap the position of the cards
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
+}
+
+func (d deck) trulyRandomShuffle() {
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i := range d {
+		newPosition := r.Intn(len(d) - 1)
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
 }
