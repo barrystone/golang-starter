@@ -41,9 +41,30 @@ func main() {
 
 	fmt.Printf("= paul.print() =\n")
 	paul.print()
+
+	fmt.Println("=== Struct with Pointers ===")
+	fmt.Printf("= paul.print(): updateNameWithNoPointer =\n")
+	// This updates the firstName of the "copy" of paul
+	paul.updateNameWithNoPointer("James")
+	paul.print()
+
+	fmt.Printf("= paul.print(): updateName =\n")
+	paulPointer := &paul
+	// This updates the firstName of the original paul
+	paulPointer.updateName("James")
+	paul.print()
+
 	fmt.Printf("======\n")
 }
 
 func (p person) print() {
 	fmt.Printf("%+v\n", p)
+}
+
+func (p person) updateNameWithNoPointer(newFirstName string) {
+	p.firstName = newFirstName
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
 }

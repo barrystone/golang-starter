@@ -16,3 +16,10 @@ Golang basic syntax and examples.
     go mod init <module_name>
 
 Init go module could enable to run `go test` to test the code.
+
+## Golang syntax
+
+### Pointers
+
+- `&variable`: Get the memory address of the value this variable is pointing at.
+- `*pointer`: Get the value this memory address is pointing at.
