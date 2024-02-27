@@ -16,7 +16,7 @@ type person struct {
 }
 
 func main() {
-	fmt.Println("=== Define struct ===")
+	fmt.Printf("=== Define struct ===\n\n")
 	var barry person
 	// barry := person{firstName: "Barry", lastName: "Stone"}
 	// // It also works by following the order of the struct
@@ -25,8 +25,8 @@ func main() {
 	barry.lastName = "Stone"
 
 	// "%+v" prints all the fields and Values of the struct
-	fmt.Printf("= barry.print() =\n")
-	barry.print()
+	fmt.Printf("= barry.printPerson() =\n")
+	barry.printPerson()
 	fmt.Println("= fmt.Println(barry) =")
 	fmt.Println(barry)
 
@@ -39,26 +39,46 @@ func main() {
 		},
 	}
 
-	fmt.Printf("= paul.print() =\n")
-	paul.print()
+	fmt.Printf("= paul.printPerson() =\n")
+	paul.printPerson()
 
-	fmt.Println("=== Struct with Pointers ===")
-	fmt.Printf("= paul.print(): updateNameWithNoPointer =\n")
+	fmt.Printf("======\n")
+	fmt.Printf("=== Struct with Pointers ===\n\n")
+
+	fmt.Printf("= paul.printPerson(): paul.updateNameWithNoPointer(\"James\") =\n")
 	// This updates the firstName of the "copy" of paul
 	paul.updateNameWithNoPointer("James")
-	paul.print()
+	paul.printPerson()
 
-	fmt.Printf("= paul.print(): updateName =\n")
+	fmt.Printf("= paul.printPerson(): paulPointer.updateName(\"James\") =\n")
 	paulPointer := &paul
 	// This updates the firstName of the original paul
 	paulPointer.updateName("James")
-	paul.print()
+	paul.printPerson()
+
+	fmt.Printf("= paul.printPerson(): paul.updateName(\"Russell\") =\n")
+	// Easy way to use pointer with golang shortcut
+	paul.updateName("Russell")
+	paul.printPerson()
+
+	fmt.Printf("======\n")
+	fmt.Printf("=== Gotchas with Pointers ===\n\n")
+
+	fmt.Printf("= updateSlice =\n")
+	mySlice := []string{"Hi", "There", "How", "Are", "You"}
+	updateSlice(mySlice)
+	fmt.Printf("%+v\n\n", mySlice)
+
+	fmt.Printf("= updateValue =\n")
+	name := "Barry"
+	updateValue(name)
+	fmt.Printf("%+v\n\n", name)
 
 	fmt.Printf("======\n")
 }
 
-func (p person) print() {
-	fmt.Printf("%+v\n", p)
+func (p person) printPerson() {
+	fmt.Printf("%+v\n\n", p)
 }
 
 func (p person) updateNameWithNoPointer(newFirstName string) {
@@ -67,4 +87,12 @@ func (p person) updateNameWithNoPointer(newFirstName string) {
 
 func (pointerToPerson *person) updateName(newFirstName string) {
 	(*pointerToPerson).firstName = newFirstName
+}
+
+func updateSlice(s []string) {
+	s[0] = "Bye"
+}
+
+func updateValue(n string) {
+	n = "Rock"
 }
