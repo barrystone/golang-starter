@@ -10,11 +10,12 @@ type contactInfo struct {
 type person struct {
 	firstName string
 	lastName  string
-	contact   contactInfo
+	contactInfo
+	// // Same as above
+	// contactInfo contactInfo
 }
 
 func main() {
-
 	fmt.Println("=== Define struct ===")
 	var barry person
 	// barry := person{firstName: "Barry", lastName: "Stone"}
@@ -24,24 +25,25 @@ func main() {
 	barry.lastName = "Stone"
 
 	// "%+v" prints all the fields and Values of the struct
-	fmt.Printf("= fmt.Printf(\"%%+v\", barry) =\n")
-	fmt.Printf("%+v", barry)
-
-	fmt.Println("\n= fmt.Println(barry) =")
+	fmt.Printf("= barry.print() =\n")
+	barry.print()
+	fmt.Println("= fmt.Println(barry) =")
 	fmt.Println(barry)
 
-	james := person{
+	paul := person{
 		firstName: "Paul",
 		lastName:  "George",
-		contact: contactInfo{
+		contactInfo: contactInfo{
 			email:   "paul@example.com",
 			zipCode: 13,
 		},
 	}
 
-	fmt.Printf("= fmt.Printf(\"%%+v\", james) =\n")
-	fmt.Printf("%+v", james)
+	fmt.Printf("= paul.print() =\n")
+	paul.print()
+	fmt.Printf("======\n")
+}
 
-	fmt.Printf("\n======\n")
-
+func (p person) print() {
+	fmt.Printf("%+v\n", p)
 }
