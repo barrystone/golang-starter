@@ -44,3 +44,9 @@ Init go module could enable to run `go test` to test the code.
 | Use to represent a collection of related properties                                                | Use to represent a "thing" with a lot of different properties |
 | Need to know all the keys at compile time                                                          | Don't need to know all the fields at compile time             |
 | Key are **indexed**, **can be iterated over**                                                      | Fields are **not indexed**, cannot be iterated over           |
+
+### Interfaces
+
+| Concrete Type                 | Interface Type |
+| ----------------------------- | -------------- |
+| map, struct, int, string, ... | interface{}    |
